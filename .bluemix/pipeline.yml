@@ -28,6 +28,9 @@ stages:
     script: |
       #!/bin/bash
       echo Deploying $CF_APP
+
+      # Push application to Bluemix, but keep it turned off
+      cf push $CF_APP --no-start
       
       # Create and bind Cloudant and IoT Platform
       cf cs cloudantNoSQLDB Shared mc-cloudant
@@ -35,5 +38,5 @@ stages:
       cf bs $CF_APP mc-cloudant
       cf bs $CF_APP mc-iotp
 
-      # Push application to Bluemix
-      cf push $CF_APP
+      # Start the application
+      cf start $CF_APP
